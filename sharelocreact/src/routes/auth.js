@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const url_back = 'http://54.36.191.192:8080/ShareLockApi-1.0-SNAPSHOT/api'
-const url_back2 = 'http://localhost:3630/'
-
 
 const AuthContext = createContext(undefined);
 

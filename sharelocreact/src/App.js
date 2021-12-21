@@ -8,10 +8,8 @@ import { AuthProvider } from './routes/auth';
 import Menu from './routes/Menu';
 import Signin from './routes/Signin';
 import Signup from './routes/Signup';
-import NavBarLogIn from './routes/NavBarLogIn';
-import NavBarLogOut from './routes/NavBarLogOut';
 
-const Home = () => <h3>You're at home</h3>;
+const Home = () => <h3></h3>;
 
 const Main = () => {
     return (
@@ -30,8 +28,10 @@ const Main = () => {
 };
 
 const App = () =>
-    <HashRouter>
-        <Main />
-    </HashRouter>;
+    <>
+    <HashRouter >
+        <Main style={{margin:0}} />
+    </HashRouter>
+    </>;
 
 export default App;

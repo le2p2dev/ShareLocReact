@@ -3,36 +3,34 @@ import {Link} from 'react-router-dom';
 import {useAuth} from './auth';
 import NavBarLogOut from "./NavBarLogOut";
 import NavBarLogIn from "./NavBarLogIn";
+import {AppBar, Box, Button, IconButton, Toolbar, Typography} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import {AccountCircle} from "@mui/icons-material";
 
 const Menu = () => {
-    const {user, signout} = useAuth();
+    const {login, signout} = useAuth();
 
-    const items = [
-        <li><Link to="/">Home</Link></li>
-    ];
-    if (!user) {
+    const items = [];
+    if (!login) {
         items.push(
-            <li><Link to="/signin">Signin</Link></li>,
-            <li><Link to="/signup">Signup</Link></li>
+           <NavBarLogIn />
         );
     } else {
         items.push(
-            <li>Connected as {user.username}</li>,
-            <li>
-                <button onClick={signout}>Signout</button>
-            </li>
+            <NavBarLogOut funcLogOut={signout} />
         );
     }
     return (
         <>
-			{
+            {/*
 				user ? <NavBarLogOut /> : <NavBarLogIn />
-			}
-            <ul>{items}</ul>
 
-			{
-				user ? " Hello" + user : "you should log in or create an account"
-			}
+			*/}
+            {items}
+
+            {
+                login ? "Hello " + login : " You should try to login"
+            }
         </>
     )
 };

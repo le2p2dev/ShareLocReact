@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
-import { useAuth } from './auth';
+import React from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography, Box} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 
-const NavBarLogOut = () => {
+const NavBarLogOut = (props) => {
 
 
     return (
-        <>
-            <Box sx={{flexGrow: 1}}>
-                <AppBar position="static" >
-                    <Toolbar>
-                        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{ mr: 2}}> Menu</Typography>
-                        <Button color="inherit"> LogOut</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
+        <Box sx={{flexGrow: 1}}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{mr: 2}}> Menu</Typography>
+                    <Button color="inherit" onClick={props.funcLogOut}> LogOut</Button>
+                </Toolbar>
+            </AppBar>
+        </Box>
 
-        </>
     );
 };
 
