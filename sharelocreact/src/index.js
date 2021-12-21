@@ -7,14 +7,7 @@ import Signin from "./routes/Signin";
 import Signup from "./routes/Signup";
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
-        </Routes>
-
-    </BrowserRouter>,
+<App/>,
   document.getElementById('root')
 );
 

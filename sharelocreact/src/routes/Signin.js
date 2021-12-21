@@ -1,42 +1,36 @@
-import {useState} from "react";
+import React, { useState } from 'react';
+import { useAuth } from './auth';
 
-export default function Signin( ) {
+const Signin = () => {
+    const { signin } = useAuth();
 
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
 
-    const [user, setUser] = useState({login: "", password: ""})
-    const [error, setError ] = useState("")
-
-    const Login = (details) => {
-        console.log(details)
-    }
-
-    const Submit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        Login(user)
-    }
-
+        signin({ login, password })
+            .catch(err => {
+                setLogin('');
+                setPassword('');
+                setMessage(err.message);
+            });
+    };
 
     return (
-       <>
-           <form onSubmit={Submit}>
-               <div className="form-inn">
-                   <h2>Login</h2>
-                   <div className="form-group">
-                       <label htmlFor="login">login</label>
-                       <input type="text" name="login" id="loginInpt"
-                              value={user.login} onChange={ e => setUser({...user, login: e.target.value}) }
-                       />
-                   </div>
-                   <div className="form-group">
-                       <label htmlFor="password">password</label>
-                       <input type="password" name="password" id="passwordInpt"
-                              value={user.password} onChange={ e => setUser({...user, password: e.target.value}) }
-                       />
-                   </div>
-                   <input type="submit" value="submit"/>
-               </div>
-           </form>
-
-       </>
+        <>
+            <h2>Signin form</h2>
+            <form onSubmit={handleSubmit} >
+                <label>Username</label>
+                <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+                <label>Password</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="submit" />
+            </form>
+            {message && <p style={{ color: 'red' }}>{message}</p>}
+        </>
     );
-}
+};
+
+export default Signin;
