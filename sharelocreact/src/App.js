@@ -8,8 +8,7 @@ import { AuthProvider } from './routes/auth';
 import Menu from './routes/Menu';
 import Signin from './routes/Signin';
 import Signup from './routes/Signup';
-
-const Home = () => <h3></h3>;
+import Home from './routes/Home';
 
 const Main = () => {
     return (

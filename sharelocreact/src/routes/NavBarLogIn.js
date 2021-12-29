@@ -3,12 +3,11 @@ import React, {useState} from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography, Box} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {AccountCircle} from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const NavBarLogIn = () => {
 
-    const [auth,setAuth] = useState(true)
-
+    const navigate = useNavigate();
 
     return (
 
@@ -17,13 +16,18 @@ const NavBarLogIn = () => {
         }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{mr: 2}}> <Link to="/">Home</Link></Typography>
-                    <Button color="inherit"> <Link to="/signin">Signin</Link></Button>
-                    <Button color="inherit"> <Link to="/signup">Signup</Link></Button>
-                    <AccountCircle/>
+                    <Button color="inherit" onClick={() => {
+                        navigate("/")
+                    }}>Home</Button>
+
+                    <Button color="inherit" onClick={() => {
+                        navigate("/signin")
+                    }}>Log in</Button>
+                    <Button color="inherit" onClick={ () => {
+                        navigate("/signup")
+                    }}> Create account</Button>
+
+
                 </Toolbar>
             </AppBar>
         </Box>

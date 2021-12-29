@@ -9,6 +9,7 @@ const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({children}) => {
     const [login,setLogin] = useState(null)
+    const [houseshare,setHouseshare] = useState(null)
     const [loading,setLoading] = useState(true)
 
     const navigate = useNavigate()
@@ -41,10 +42,16 @@ export const AuthProvider = ({children}) => {
     }
 
     const signup = (credentials) => {
-        return fetch(`${url_back}/signin`,{
+        console.log(credentials)
+        return fetch(`${url_back}/signup`,{
             method: 'POST',
-            headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
-            body: credentials
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({
+                login: credentials.login,
+                password: credentials.password,
+                firstname: credentials.firstname,
+                lastname: credentials.lastname
+            })
         }).then(() => {
             navigate('/signin');
         });
@@ -76,8 +83,21 @@ export const AuthProvider = ({children}) => {
         navigate('/');
     };
 
+    //api consts
+    const getHouseShare = async () => {
+        const token = window.localStorage.getItem('message')
+       return  await fetch(`${url_back}/houseshare/index`,{
+           method: 'GET',
+           headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }
+       }).then( res => res.json()).then( res => {
+           console.log(res)
+           setHouseshare(res)
+       })
+
+    }
+
     return (
-        <AuthContext.Provider value={{ login, signup, signin, signout }}>
+        <AuthContext.Provider value={{ login,houseshare, signup, signin, signout,  getHouseShare }}>
             {children}
         </AuthContext.Provider>
     )
