@@ -9,6 +9,7 @@ import Menu from './routes/Menu';
 import Signin from './routes/Signin';
 import Signup from './routes/Signup';
 import Home from './routes/Home';
+import Base from './routes/Base';
 
 const Main = () => {
     return (
@@ -17,7 +18,8 @@ const Main = () => {
 
 
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Base />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="*" element={<Navigate to="/" />} />

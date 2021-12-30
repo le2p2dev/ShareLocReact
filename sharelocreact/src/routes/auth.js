@@ -78,8 +78,9 @@ export const AuthProvider = ({children}) => {
             }).catch(e => console.log(e));
     };
     const signout = () => {
-        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('message');
         setLogin(null);
+        setHouseshare(null);
         navigate('/');
     };
 
