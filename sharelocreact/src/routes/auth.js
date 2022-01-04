@@ -85,12 +85,13 @@ export const AuthProvider = ({children}) => {
     };
 
     //api consts
-    const getHouseShare = async () => {
+    const getHouseShare =  () => {
         const token = window.localStorage.getItem('message')
-       return  await fetch(`${url_back}/houseshare/index`,{
+       return   fetch(`${url_back}/houseshare/index`,{
            method: 'GET',
            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }
        }).then( res => res.json()).then( res => {
+           console.log("toto")
            console.log(res)
            setHouseshare(res)
        })

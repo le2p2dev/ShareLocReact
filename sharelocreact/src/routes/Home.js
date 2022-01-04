@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import HouseShare from "./HouseShare";
 import AddIcon from '@mui/icons-material/Add';
 import {Box, Modal, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import TextField from "@mui/material/TextField";
 
 const Home = () => {
 
@@ -23,10 +25,13 @@ const Home = () => {
 
     const [loading, setLoading] = useState(true)
     const [open,setOpen] = useState(false)
+    const [open2,setOpen2] = useState(false)
 
     //handle funcs for modals
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+    const handleOpen2 = () => setOpen2(true)
+    const handleClose2 = () => setOpen2(false)
 
     useEffect(() => {
         if (!houseshare) {
@@ -36,6 +41,7 @@ const Home = () => {
     }, [])
     console.log(houseshare)
 
+    const navigate = useNavigate()
 
     return (
         <>
@@ -44,8 +50,21 @@ const Home = () => {
                     <Typography>
                         Do you want to create or join a houseshare ?
                     </Typography>
-                    <Button>Create</Button>
-                    <Button>Join</Button>
+                    <Button onClick={handleOpen2}>Join</Button>
+                    <Button onClick={ () => {
+                        navigate('/houseshare/create')
+                    }}>Create</Button>
+                </Box>
+            </Modal>
+
+            <Modal open={open2} onClose={handleClose2}>
+                <Box sx={style}>
+                    <Typography>
+                        Join a houseshare
+                        <TextField id="outlined-basic" label="Code" variant="outlined"  />
+                    </Typography>
+                    <Button onClick={handleClose2}>Close</Button>
+
                 </Box>
             </Modal>
 
@@ -56,7 +75,7 @@ const Home = () => {
             {
                 (houseshare) ? houseshare.map((data) => {
                 //todo : create a card for each houseshare in a new component
-                return (<HouseShare name={data.name} date={data.dateCreation} description={data.description} />)}) : "loading..."
+                return (<HouseShare name={data.name} date={data.dateCreation} description={data.description} />)}) : "No HouseShare Founded, try to create one"
             }
 
             <br/>
