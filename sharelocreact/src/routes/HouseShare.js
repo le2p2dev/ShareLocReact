@@ -3,7 +3,7 @@ import {useAuth} from './auth';
 import Button from '@mui/material/Button';
 import {useNavigate} from "react-router-dom";
 
-const HouseShare = ({date, description, name}) => {
+const HouseShare = ({id,date, description, name}) => {
 
 
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ const HouseShare = ({date, description, name}) => {
             <p>{description}</p>
             <p>Crée le {date}</p>
             <Button onClick={() => {
-                navigate("/houseshare")
+                navigate("/houseshare/"+id)
             }}>more info</Button>
 
 

@@ -31,7 +31,9 @@ const NavBarLogOut = (props) => {
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{mr: 2}}> Menu</Typography>
+                    <Button color="inherit" onClick={() => {
+                        navigate("/")
+                    }}>Home</Button>
                     <div>
                         <IconButton
                             size="large"

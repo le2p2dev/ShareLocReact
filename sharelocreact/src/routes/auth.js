@@ -10,6 +10,8 @@ const AuthContext = createContext(undefined);
 export const AuthProvider = ({children}) => {
     const [login, setLogin] = useState(null)
     const [houseshare, setHouseshare] = useState(null)
+    const [categories, setCategories] = useState(null)
+    const [tasks, setTasks] = useState(null)
     const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
@@ -81,6 +83,8 @@ export const AuthProvider = ({children}) => {
         window.localStorage.removeItem('message');
         setLogin(null);
         setHouseshare(null);
+        setTasks(null);
+        setCategories(null);
         navigate('/');
     };
 
@@ -90,31 +94,88 @@ export const AuthProvider = ({children}) => {
         return fetch(`${url_back}/houseshare/index`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token}
-        }).then(res => res.json()).then(res => {
-            console.log("toto")
-            console.log(res)
-            setHouseshare(res)
         })
-
+            .then(res => res.json())
+            .then(res => {
+                setHouseshare(res)
+            })
     }
 
     const createHouseShare = (credentials) => {
         const token = window.localStorage.getItem("message")
         return fetch(`${url_back}/houseshare/create`, {
             method: 'POST',
-            headers : {'Content-Type': 'application/json', Authorization: 'Bearer ' + token},
+            headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token},
             body: JSON.stringify({
                 name: credentials.name,
                 description: credentials.description
             })
-        }).then( res => res.json()).then( data => {
+        }).then(res => res.json()).then(data => {
             getHouseShare()
-             navigate("/home")
+            navigate("/home")
         })
     }
 
+    const getAllTasks = ({id}) => {
+        const token = window.localStorage.getItem("message")
+        return fetch(`${url_back}/tasks/index?idHouseShare=${id}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token}
+        })
+            .then(res => res.json())
+            .then(data => {
+                setTasks(data)
+            })
+    }
+
+    const getCategories = () => {
+        const token = window.localStorage.getItem("message")
+        return fetch(`${url_back}/category/index`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token}
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setCategories(data)
+            })
+    }
+
+    const createTasks = (credentials) => {
+        const id = credentials.id
+        const token = window.localStorage.getItem("message")
+        return fetch(`${url_back}/tasks/create`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + token},
+            body: JSON.stringify({
+                title: credentials.title,
+                description: credentials.description,
+                point: credentials.point,
+                idCategory: parseInt(credentials.idCategory),
+                idHouseShare: parseInt(credentials.idColloc)
+            })
+        }).then(res => res.json())
+            .then((data) => {
+                getAllTasks({id})
+                navigate("/houseshare/" + credentials.idColloc)
+            })
+    }
+
     return (
-        <AuthContext.Provider value={{login, houseshare, createHouseShare, signup, signin, signout, getHouseShare}}>
+        <AuthContext.Provider value={{
+            login,
+            categories,
+            getCategories,
+            createTasks,
+            houseshare,
+            tasks,
+            getAllTasks,
+            createHouseShare,
+            signup,
+            signin,
+            signout,
+            getHouseShare
+        }}>
             {children}
         </AuthContext.Provider>
     )

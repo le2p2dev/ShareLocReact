@@ -39,7 +39,6 @@ const Home = () => {
             setLoading(false)
         }
     }, [])
-    console.log(houseshare)
 
     const navigate = useNavigate()
 
@@ -75,7 +74,7 @@ const Home = () => {
             {
                 (houseshare) ? houseshare.map((data) => {
                 //todo : create a card for each houseshare in a new component
-                return (<HouseShare name={data.name} date={data.dateCreation} description={data.description} />)}) : "No HouseShare Founded, try to create one"
+                return (<HouseShare name={data.name} id={data.id} date={data.dateCreation} description={data.description} />)}) : "No HouseShare Founded, try to create one"
             }
 
             <br/>
